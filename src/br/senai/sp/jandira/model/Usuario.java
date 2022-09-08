@@ -1,6 +1,8 @@
 package br.senai.sp.jandira.model;
 
-	public class Usuario {
+import br.senai.sp.jandira.gui.FrameTabuada;
+
+public class Usuario {
 		
 			
 			public int multiplicando;
