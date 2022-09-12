@@ -5,18 +5,22 @@ import java.awt.Container;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.ScrollPane;
+import java.awt.TextField;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-
+import javax.swing.DefaultListModel;
+import javax.swing.ImageIcon;
 import javax.swing.JButton;
 import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
 import javax.swing.JTextField;
 import javax.swing.Scrollable;
 import javax.swing.border.LineBorder;
 
+import br.senai.sp.jandira.AppTabuada;
 import br.senai.sp.jandira.model.Usuario;
 
 public class FrameTabuada {
@@ -37,7 +41,7 @@ public class FrameTabuada {
 			Color corPreta =new Color(0, 0, 0);
 			
 			
-			
+		
 			
 		public void criarTela() {
 			
@@ -55,6 +59,8 @@ public class FrameTabuada {
 		
 		
 		//Criar componente para o painel
+		
+		
 		JLabel labelTitulo = new JLabel();
 		labelTitulo.setText("Tabuada 1.0");
 		labelTitulo.setBounds(90, 20, 200, 70);
@@ -79,6 +85,7 @@ public class FrameTabuada {
 		JTextField textMultiplicando = new JTextField();
 		textMultiplicando.setText(null);
 		textMultiplicando.setBounds(230, 150, 150, 35);
+		textMultiplicando.setHorizontalAlignment(JTextField.RIGHT);
 		
 		JLabel labelMinimoMultiplicador = new JLabel();
 		labelMinimoMultiplicador.setText("Mínimo Multiplicador :");
@@ -88,6 +95,7 @@ public class FrameTabuada {
 		JTextField textMinimoMultiplicador = new JTextField();
 		textMinimoMultiplicador.setText(null);
 		textMinimoMultiplicador.setBounds(230, 210, 150, 35);
+		textMinimoMultiplicador.setHorizontalAlignment(JTextField.RIGHT);
 		
 		JLabel labelMaximoMultiplicador = new JLabel();
 		labelMaximoMultiplicador.setText("Máximo Multiplicador :");
@@ -97,6 +105,7 @@ public class FrameTabuada {
 		JTextField textMaximoMultiplicador = new JTextField();
 		textMaximoMultiplicador.setText(null);
 		textMaximoMultiplicador.setBounds(230, 270, 150, 35);
+		textMaximoMultiplicador.setHorizontalAlignment(JTextField.RIGHT);
 		
 		JButton buttonCalcular = new JButton();
 		buttonCalcular.setText("Calcular");
@@ -121,11 +130,22 @@ public class FrameTabuada {
 		listaDeResultado.setBackground(corDeDentroDoBotãoCalcular);
 		listaDeResultado.setBorder(new LineBorder(corPreta));
 		
+		JScrollPane scrollResultado = new JScrollPane();
+		scrollResultado.setBounds(18, 430, 400, 220);
+		scrollResultado.setBackground(new Color(255, 247, 158));
+		
+		ImageIcon iconCalculadora = new ImageIcon("C:/Users/22282226/eclipse-workspace/Projeto-Tabuada/src/br/senai/sp/jandira/calculator.png");
+		JLabel labelIcon = new JLabel(iconCalculadora);
+		labelIcon.setBounds(5, 20, 100, 100);
+		
+	
 		
 		
 		
-		//Tornar a tela visivel
-		tela.setVisible(true);
+		
+		
+		
+		
 		
 		//Adcionar Componente ao painel
 		painel.add(labelTitulo);
@@ -141,10 +161,71 @@ public class FrameTabuada {
 		painel.add(buttonLimpar);
 		painel.add(labelResultado);
 		painel.add(listaDeResultado);
+		painel.add(scrollResultado);
+		painel.add(labelIcon);
 		
 		
+		tela.setLocationRelativeTo(null);
+		tela.setResizable(false);
+		
+		//Tornar a tela visivel
+				tela.setVisible(true);
+				
+		buttonCalcular.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				
+				if(textMultiplicando.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Multiplicando está vazio", "Erro", JOptionPane.OK_OPTION);
+					textMultiplicando.requestFocus();
+				}else if (textMinimoMultiplicador.getText().isEmpty()){
+					JOptionPane.showMessageDialog(null, "Minimo Multiplicador está vazio", "Erro", JOptionPane.OK_OPTION);	
+					textMultiplicando.requestFocus();
+				}else if (textMaximoMultiplicador.getText().isEmpty()) {
+					JOptionPane.showMessageDialog(null, "Máximo Multiplicador está vazio", "Erro", JOptionPane.OK_OPTION);
+					textMultiplicando.requestFocus();
+				}else {
+					Usuario tabuada = new Usuario();
+					tabuada.multiplicando = Integer.parseInt(textMultiplicando.getText());
+					tabuada.minimoMultiplicador = Integer.parseInt(textMinimoMultiplicador.getText());
+					tabuada.maximoMultiplicador = Integer.parseInt(textMaximoMultiplicador.getText());
+					
+					if (tabuada.maximoMultiplicador >= tabuada.minimoMultiplicador) {
+						listaDeResultado.setListData(tabuada.getTabuada());
+						scrollResultado.getViewport().add(listaDeResultado);
+					} else {
+					JOptionPane.showMessageDialog(null, "O mínimo multiplicador é maior que o máximo multiplicador", "Erro", JOptionPane.OK_OPTION);
+					textMaximoMultiplicador.setText("");
+					textMinimoMultiplicador.setText("");
+					textMultiplicando.setText("");
+					}
+				}
+			}	
+				
+			});		
+		
+				
+		
+		buttonLimpar.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				DefaultListModel<String> listModel = new DefaultListModel<String>();
+				listaDeResultado.setModel(listModel);
+				textMaximoMultiplicador.setText("");
+				textMinimoMultiplicador.setText("");
+				textMultiplicando.setText("");
+				textMultiplicando.requestFocus();
+				
+
+				
+			}
+		});
 				
 				
 					
-		}
+		}	
 }

@@ -16,19 +16,19 @@ public class AppTabuada {
 		
 		
 		
-		Usuario usuario = new Usuario();
+		//Usuario usuario = new Usuario();
 		
-		usuario.multiplicando = 9;
-		usuario.minimoMultiplicador = 25;
-		usuario.maximoMultiplicador = 105;
+		//usuario.multiplicando = 9;
+		//usuario.minimoMultiplicador = 25;
+		//usuario.maximoMultiplicador = 105;
 		
-		String[] resultado = usuario.getTabuada();
+		//String[] resultado = usuario.getTabuada();
 		
-		int i = 0;
-		 while(i < resultado.length) {
-			 System.out.println(resultado[i]);
-			 i++;
-		 }
+		//int i = 0;
+		 //while(i < resultado.length) {
+			 //System.out.println(resultado[i]);
+			 //i++;
+		 //}
 		
 	 
 	}
