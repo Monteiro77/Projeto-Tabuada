@@ -182,10 +182,10 @@ public class FrameTabuada {
 					textMultiplicando.requestFocus();
 				}else if (textMinimoMultiplicador.getText().isEmpty()){
 					JOptionPane.showMessageDialog(null, "Minimo Multiplicador está vazio", "Erro", JOptionPane.OK_OPTION);	
-					textMultiplicando.requestFocus();
+					textMinimoMultiplicador.requestFocus();
 				}else if (textMaximoMultiplicador.getText().isEmpty()) {
 					JOptionPane.showMessageDialog(null, "Máximo Multiplicador está vazio", "Erro", JOptionPane.OK_OPTION);
-					textMultiplicando.requestFocus();
+					textMaximoMultiplicador.requestFocus();
 				}else {
 					Usuario tabuada = new Usuario();
 					tabuada.multiplicando = Integer.parseInt(textMultiplicando.getText());
